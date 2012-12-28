@@ -1,11 +1,17 @@
 package gui;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle;
 
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.SwingUtilities;
 
 
@@ -23,6 +29,9 @@ import javax.swing.SwingUtilities;
 */
 public class MainFrame extends javax.swing.JFrame {
 	private JMenuBar mainMenuBar;
+	private JPanel jPanel1;
+	private JTabbedPane jTabbedPane1;
+	private JSplitPane jSplitPane1;
 	private JMenu jMenu1;
 
 	/**
@@ -48,10 +57,28 @@ public class MainFrame extends javax.swing.JFrame {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
-			thisLayout.setVerticalGroup(thisLayout.createParallelGroup());
-			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup());
 			this.setTitle("Image manager");
 			getContentPane().setBackground(new java.awt.Color(127,127,127));
+			{
+				jSplitPane1 = new JSplitPane();
+				{
+					jPanel1 = new JPanel();
+					jSplitPane1.add(jPanel1, JSplitPane.LEFT);
+					jPanel1.setPreferredSize(new java.awt.Dimension(339, 557));
+					jPanel1.setBackground(new java.awt.Color(30,144,255));
+				}
+				{
+					jTabbedPane1 = new JTabbedPane();
+					jSplitPane1.add(jTabbedPane1, JSplitPane.RIGHT);
+				}
+				//jSplitPane1.setDividerLocation(0.5);
+				//jSplitPane1.setEnabled(false);
+			}
+			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
+				.addComponent(jSplitPane1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addContainerGap());
+			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
+				.addComponent(jSplitPane1, 0, 788, Short.MAX_VALUE));
 			{
 				mainMenuBar = new JMenuBar();
 				setJMenuBar(mainMenuBar);
