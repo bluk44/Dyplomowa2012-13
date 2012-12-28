@@ -1,4 +1,9 @@
 package gui;
+import javax.swing.GroupLayout;
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.LayoutStyle;
 
 import javax.swing.WindowConstants;
 import javax.swing.SwingUtilities;
@@ -17,6 +22,8 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class MainFrame extends javax.swing.JFrame {
+	private JMenuBar mainMenuBar;
+	private JMenu jMenu1;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -39,8 +46,23 @@ public class MainFrame extends javax.swing.JFrame {
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
+			getContentPane().setLayout(thisLayout);
+			thisLayout.setVerticalGroup(thisLayout.createParallelGroup());
+			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup());
+			this.setTitle("Image manager");
+			getContentPane().setBackground(new java.awt.Color(127,127,127));
+			{
+				mainMenuBar = new JMenuBar();
+				setJMenuBar(mainMenuBar);
+				{
+					jMenu1 = new JMenu();
+					mainMenuBar.add(jMenu1);
+					jMenu1.setText("jMenu1");
+				}
+			}
 			pack();
-			this.setSize(736, 456);
+			this.setSize(798, 626);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
