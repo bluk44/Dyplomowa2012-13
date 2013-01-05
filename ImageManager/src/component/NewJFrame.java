@@ -51,12 +51,12 @@ public class NewJFrame extends javax.swing.JFrame {
 		try {
 			
 			panel = new JPanel();
-			panel.setMinimumSize(new Dimension(300, 300));
+		//	panel.setMinimumSize(new Dimension(300, 300));
 			//panel.setBounds(1,1 , 1, 1);
 	//		panel.setLayout(new FlowLayout());
 			
 			panel.setLayout(new ThumbnailLayout(15, 15));
-			panel.setPreferredSize(new Dimension(300, 300));
+			panel.setPreferredSize(new Dimension(100, 100));
 			
 			panel.setBackground(Color.RED);
 			

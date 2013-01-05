@@ -30,6 +30,8 @@ import javax.swing.SwingUtilities;
 public class MainFrame extends javax.swing.JFrame {
 	private JMenuBar mainMenuBar;
 	private JPanel jPanel1;
+	private JScrollPane jScrollPane1;
+	private JScrollPane jScrollPane2;
 	private JTabbedPane jTabbedPane1;
 	private JSplitPane jSplitPane1;
 	private JMenu jMenu1;
@@ -61,15 +63,27 @@ public class MainFrame extends javax.swing.JFrame {
 			getContentPane().setBackground(new java.awt.Color(127,127,127));
 			{
 				jSplitPane1 = new JSplitPane();
+				jSplitPane1.setMinimumSize(new java.awt.Dimension(1, 1));
 				{
 					jPanel1 = new JPanel();
 					jSplitPane1.add(jPanel1, JSplitPane.LEFT);
-					jPanel1.setPreferredSize(new java.awt.Dimension(339, 557));
+					jPanel1.setPreferredSize(new java.awt.Dimension(472, 557));
 					jPanel1.setBackground(new java.awt.Color(30,144,255));
 				}
 				{
 					jTabbedPane1 = new JTabbedPane();
 					jSplitPane1.add(jTabbedPane1, JSplitPane.RIGHT);
+					{
+						jScrollPane1 = new JScrollPane();
+						jTabbedPane1.addTab("jScrollPane1", null, jScrollPane1, null);
+						jScrollPane1.setPreferredSize(new java.awt.Dimension(302, 530));
+						jScrollPane1.setMinimumSize(new java.awt.Dimension(1, 1));
+					}
+					{
+						jScrollPane2 = new JScrollPane();
+						jTabbedPane1.addTab("jScrollPane2", null, jScrollPane2, null);
+						jScrollPane2.setMinimumSize(new java.awt.Dimension(1, 1));
+					}
 				}
 				//jSplitPane1.setDividerLocation(0.5);
 				//jSplitPane1.setEnabled(false);
