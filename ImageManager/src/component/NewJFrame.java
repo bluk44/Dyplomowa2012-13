@@ -27,7 +27,7 @@ import javax.swing.WindowConstants;
 public class NewJFrame extends javax.swing.JFrame {
 	private boolean clicked= false;
 	ThumbnailComponent[] components = new ThumbnailComponent[100];
-	JPanel panel;
+	ThumbnailPanel panel;
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
@@ -49,24 +49,20 @@ public class NewJFrame extends javax.swing.JFrame {
 	
 	private void initGUI() {
 		try {
-			
-			panel = new JPanel();
+			panel = new ThumbnailPanel();
 		//	panel.setMinimumSize(new Dimension(300, 300));
 			//panel.setBounds(1,1 , 1, 1);
 	//		panel.setLayout(new FlowLayout());
-			
-			panel.setLayout(new ThumbnailLayout(15, 15));
-			panel.setPreferredSize(new Dimension(100, 100));
-			
+						
 			panel.setBackground(Color.RED);
 			
 			for(int i=0;i<components.length;i++){
 				components[i] = new ThumbnailComponent(""+i);
 				panel.add(components[i]);
 			}
-			
+			panel.setPreferredSize(new Dimension(300,300));
 			getContentPane().setLayout(new GridLayout(1,1));
-			add(panel);
+			
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent evt) {
@@ -74,6 +70,8 @@ public class NewJFrame extends javax.swing.JFrame {
 					panel.setBounds(0, 0, 500, 500);
 				}
 			});
+			add(panel);
+
 			pack();
 			this.setSize(837, 742);
 		} catch (Exception e) {

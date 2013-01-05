@@ -8,11 +8,15 @@ import java.awt.LayoutManager;
 import javax.swing.JPanel;
 
 public class ThumbnailPanel extends JPanel {
-		
+	
+	public ThumbnailPanel(){
+		this.setLayout(new ThumbnailLayout());
+	}
+	
 	class ThumbnailLayout implements LayoutManager{
 		
 		// wartosci odpowiadaja aktualnemu rozmiarowi miniaturki
-		private int minCompWidth, minCompHeight, maxCompWidth, maxCompHeight, compWidth = -1, compHeight = -1;
+		private int minCompWidth = 50, minCompHeight = 50, maxCompWidth = 75, maxCompHeight = 75, compWidth = -1, compHeight = -1;
 		
 		@Override
 		public void addLayoutComponent(String name, Component comp) {}
@@ -65,10 +69,13 @@ public class ThumbnailPanel extends JPanel {
 			// wyznaczyc polozenie komponentow
 			
 			Component[] comps = parent.getComponents();
-			for (int i = 0; i < compsInCol; i++) {
-				for (int j = 0; j < compsInRow; j++) {
-					comps[i * compsInRow + j].setBounds(j * compWidth, i
-							* compHeight, compWidth, compHeight);
+			int i = 0, j = 0;
+			for (Component c : comps) {
+				c.setBounds(j * compWidth, i * compHeight, compWidth, compHeight);
+				++j;
+				if (j == compsInRow) {
+					j = 0;
+					++i;
 				}
 			}
 			
