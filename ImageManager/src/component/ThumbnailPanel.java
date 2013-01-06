@@ -4,10 +4,12 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.Rectangle;
 
 import javax.swing.JPanel;
+import javax.swing.Scrollable;
 
-public class ThumbnailPanel extends JPanel {
+public class ThumbnailPanel extends JPanel implements Scrollable{
 	
 	public ThumbnailPanel(){
 		this.setLayout(new ThumbnailLayout());
@@ -16,7 +18,7 @@ public class ThumbnailPanel extends JPanel {
 	class ThumbnailLayout implements LayoutManager{
 		
 		// wartosci odpowiadaja aktualnemu rozmiarowi miniaturki
-		private int minCompWidth = 50, minCompHeight = 50, maxCompWidth = 75, maxCompHeight = 75, compWidth = -1, compHeight = -1;
+		private int compWidth = 50, compHeight = 50;
 		
 		@Override
 		public void addLayoutComponent(String name, Component comp) {}
@@ -36,6 +38,7 @@ public class ThumbnailPanel extends JPanel {
 
 		@Override
 		public void layoutContainer(Container parent) {
+			System.out.println("layout container called");
 			fitComponents(parent);
 		}
 		
@@ -47,13 +50,7 @@ public class ThumbnailPanel extends JPanel {
 			int compsCount = parent.getComponentCount();
 			int panelWidth = parent.getWidth(), panelHeight = parent.getHeight();
 			// obliczyc szerokosc przypadajaca na komponent
-			
-			// pierwsze uruchomienie
-			if(compWidth == -1 && compHeight == -1){
-				compWidth = maxCompWidth;
-				compHeight = maxCompHeight;
-			}
-			
+						
 			// obliczyc ile komponentow w rzedzie i skorygowac szerokosc panelu
 			int compsInRow = panelWidth / compWidth;
 			panelWidth = compsInRow * compWidth;
@@ -64,7 +61,7 @@ public class ThumbnailPanel extends JPanel {
 			
 			panelHeight = compsInCol * compHeight;
 			
-			parent.setSize(panelWidth, panelHeight);
+			parent.setPreferredSize(new Dimension(panelWidth, panelHeight));
 			
 			// wyznaczyc polozenie komponentow
 			
@@ -89,5 +86,37 @@ public class ThumbnailPanel extends JPanel {
 		setComponentLimits(minWidth, minHeight, maxWidth, maxHeight, -1, -1);
 	}
 	
+	}
+
+	@Override
+	public Dimension getPreferredScrollableViewportSize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getScrollableUnitIncrement(Rectangle visibleRect,
+			int orientation, int direction) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getScrollableBlockIncrement(Rectangle visibleRect,
+			int orientation, int direction) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean getScrollableTracksViewportWidth() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean getScrollableTracksViewportHeight() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
