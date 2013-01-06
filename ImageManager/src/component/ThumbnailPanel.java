@@ -18,8 +18,7 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 	class ThumbnailLayout implements LayoutManager{
 		
 		// wartosci odpowiadaja aktualnemu rozmiarowi miniaturki
-		private int compWidth = 50, compHeight = 50;
-		
+		private int compWidth = 100, compHeight = 100;
 		@Override
 		public void addLayoutComponent(String name, Component comp) {}
 
@@ -38,7 +37,6 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 
 		@Override
 		public void layoutContainer(Container parent) {
-			System.out.println("layout container called");
 			fitComponents(parent);
 		}
 		
@@ -53,6 +51,9 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 						
 			// obliczyc ile komponentow w rzedzie i skorygowac szerokosc panelu
 			int compsInRow = panelWidth / compWidth;
+			int leftPixels = panelWidth % compWidth;
+			int addPixels = leftPixels / compsInRow;
+			
 			panelWidth = compsInRow * compWidth;
 			
 			// obliczyc ile komponentow w kolumnie i wysokosc panelu
@@ -68,7 +69,7 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			Component[] comps = parent.getComponents();
 			int i = 0, j = 0;
 			for (Component c : comps) {
-				c.setBounds(j * compWidth, i * compHeight, compWidth, compHeight);
+				c.setBounds(j * (compWidth+addPixels), i * compHeight, compWidth+addPixels, compHeight);
 				++j;
 				if (j == compsInRow) {
 					j = 0;
@@ -77,15 +78,7 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			}
 			
 		}
-		
-	public void setComponentLimits(int minWidth, int minHeight, int maxWidth, int maxHeight, int width, int height){
-		
-	}
-
-	public void setComponentLimits(int minWidth, int minHeight, int maxWidth, int maxHeight){
-		setComponentLimits(minWidth, minHeight, maxWidth, maxHeight, -1, -1);
-	}
-	
+			
 	}
 
 	@Override
