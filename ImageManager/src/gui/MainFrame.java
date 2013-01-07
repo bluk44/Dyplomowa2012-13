@@ -29,12 +29,15 @@ import javax.swing.SwingUtilities;
 */
 public class MainFrame extends javax.swing.JFrame {
 	private JMenuBar mainMenuBar;
+	private JSplitPane jSplitPane2;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	private JScrollPane jScrollPane4;
+	private JTabbedPane jTabbedPane1;
+	private JPanel jPanel1;
 	private JPanel bottomPanel;
 	private JPanel topPanel;
 	private JScrollPane jScrollPane3;
-	private JTabbedPane jTabbedPane1;
 	private JSplitPane jSplitPane1;
 	private JMenu jMenu1;
 
@@ -63,35 +66,39 @@ public class MainFrame extends javax.swing.JFrame {
 			getContentPane().setLayout(thisLayout);
 			this.setTitle("Image manager");
 			getContentPane().setBackground(new java.awt.Color(127,127,127));
-			this.setPreferredSize(new java.awt.Dimension(780, 659));
+			this.setPreferredSize(new java.awt.Dimension(874, 697));
 			{
 				jSplitPane1 = new JSplitPane();
-				jSplitPane1.setMinimumSize(new java.awt.Dimension(1, 1));
 				jSplitPane1.setResizeWeight(1.0);
 				{
-					jTabbedPane1 = new JTabbedPane();
-					jSplitPane1.add(jTabbedPane1, JSplitPane.RIGHT);
+					jScrollPane3 = new JScrollPane();
+					jSplitPane1.add(jScrollPane3, JSplitPane.RIGHT);
+					jScrollPane3.setMinimumSize(new java.awt.Dimension(1, 1));
 					{
-						jScrollPane1 = new JScrollPane();
-						jTabbedPane1.addTab("jScrollPane1", null, jScrollPane1, null);
-						jScrollPane1.setPreferredSize(new java.awt.Dimension(50, 530));
-						jScrollPane1.setMinimumSize(new java.awt.Dimension(1, 1));
-						jScrollPane1.setSize(50, 530);
-					}
-					{
-						jScrollPane2 = new JScrollPane();
-						jTabbedPane1.addTab("jScrollPane2", null, jScrollPane2, null);
-						jScrollPane2.setMinimumSize(new java.awt.Dimension(1, 1));
-						jScrollPane2.setPreferredSize(new java.awt.Dimension(50, 530));
-						jScrollPane2.setSize(50, 530);
+						jSplitPane2 = new JSplitPane();
+						jScrollPane3.setViewportView(jSplitPane2);
+						jSplitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+						{
+							jPanel1 = new JPanel();
+							jSplitPane2.add(jPanel1, JSplitPane.RIGHT);
+						}
+						{
+							jTabbedPane1 = new JTabbedPane();
+							jSplitPane2.add(jTabbedPane1, JSplitPane.LEFT);
+							{
+								jScrollPane2 = new JScrollPane();
+								jTabbedPane1.addTab("jScrollPane2", null, jScrollPane2, null);
+							}
+							{
+								jScrollPane4 = new JScrollPane();
+								jTabbedPane1.addTab("jScrollPane4", null, jScrollPane4, null);
+							}
+						}
 					}
 				}
 				{
-					jScrollPane3 = new JScrollPane();
-					jSplitPane1.add(jScrollPane3, JSplitPane.LEFT);
-					jScrollPane3.setPreferredSize(new java.awt.Dimension(500, 531));
-					jScrollPane3.setSize(500, 586);
-					jScrollPane3.setMinimumSize(new java.awt.Dimension(500, 700));
+					jScrollPane1 = new JScrollPane();
+					jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
 				}
 			}
 			{
@@ -119,7 +126,7 @@ public class MainFrame extends javax.swing.JFrame {
 				}
 			}
 			pack();
-			this.setSize(780, 659);
+			this.setSize(874, 697);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
