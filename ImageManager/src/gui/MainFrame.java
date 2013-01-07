@@ -29,9 +29,9 @@ import javax.swing.SwingUtilities;
 */
 public class MainFrame extends javax.swing.JFrame {
 	private JMenuBar mainMenuBar;
-	private JPanel jPanel1;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	private JScrollPane jScrollPane3;
 	private JTabbedPane jTabbedPane1;
 	private JSplitPane jSplitPane1;
 	private JMenu jMenu1;
@@ -61,29 +61,35 @@ public class MainFrame extends javax.swing.JFrame {
 			getContentPane().setLayout(thisLayout);
 			this.setTitle("Image manager");
 			getContentPane().setBackground(new java.awt.Color(127,127,127));
+			this.setPreferredSize(new java.awt.Dimension(800, 600));
 			{
 				jSplitPane1 = new JSplitPane();
 				jSplitPane1.setMinimumSize(new java.awt.Dimension(1, 1));
-				{
-					jPanel1 = new JPanel();
-					jSplitPane1.add(jPanel1, JSplitPane.LEFT);
-					jPanel1.setPreferredSize(new java.awt.Dimension(472, 557));
-					jPanel1.setBackground(new java.awt.Color(30,144,255));
-				}
+				jSplitPane1.setResizeWeight(1.0);
 				{
 					jTabbedPane1 = new JTabbedPane();
 					jSplitPane1.add(jTabbedPane1, JSplitPane.RIGHT);
 					{
 						jScrollPane1 = new JScrollPane();
 						jTabbedPane1.addTab("jScrollPane1", null, jScrollPane1, null);
-						jScrollPane1.setPreferredSize(new java.awt.Dimension(302, 530));
+						jScrollPane1.setPreferredSize(new java.awt.Dimension(50, 530));
 						jScrollPane1.setMinimumSize(new java.awt.Dimension(1, 1));
+						jScrollPane1.setSize(50, 530);
 					}
 					{
 						jScrollPane2 = new JScrollPane();
 						jTabbedPane1.addTab("jScrollPane2", null, jScrollPane2, null);
 						jScrollPane2.setMinimumSize(new java.awt.Dimension(1, 1));
+						jScrollPane2.setPreferredSize(new java.awt.Dimension(50, 530));
+						jScrollPane2.setSize(50, 530);
 					}
+				}
+				{
+					jScrollPane3 = new JScrollPane();
+					jSplitPane1.add(jScrollPane3, JSplitPane.LEFT);
+					jScrollPane3.setPreferredSize(new java.awt.Dimension(500, 531));
+					jScrollPane3.setSize(500, 586);
+					jScrollPane3.setMinimumSize(new java.awt.Dimension(500, 700));
 				}
 				//jSplitPane1.setDividerLocation(0.5);
 				//jSplitPane1.setEnabled(false);
@@ -103,7 +109,7 @@ public class MainFrame extends javax.swing.JFrame {
 				}
 			}
 			pack();
-			this.setSize(798, 626);
+			this.setSize(800, 600);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
