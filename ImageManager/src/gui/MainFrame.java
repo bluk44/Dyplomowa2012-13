@@ -31,6 +31,8 @@ public class MainFrame extends javax.swing.JFrame {
 	private JMenuBar mainMenuBar;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
+	private JPanel bottomPanel;
+	private JPanel topPanel;
 	private JScrollPane jScrollPane3;
 	private JTabbedPane jTabbedPane1;
 	private JSplitPane jSplitPane1;
@@ -61,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
 			getContentPane().setLayout(thisLayout);
 			this.setTitle("Image manager");
 			getContentPane().setBackground(new java.awt.Color(127,127,127));
-			this.setPreferredSize(new java.awt.Dimension(800, 600));
+			this.setPreferredSize(new java.awt.Dimension(780, 659));
 			{
 				jSplitPane1 = new JSplitPane();
 				jSplitPane1.setMinimumSize(new java.awt.Dimension(1, 1));
@@ -91,14 +93,22 @@ public class MainFrame extends javax.swing.JFrame {
 					jScrollPane3.setSize(500, 586);
 					jScrollPane3.setMinimumSize(new java.awt.Dimension(500, 700));
 				}
-				//jSplitPane1.setDividerLocation(0.5);
-				//jSplitPane1.setEnabled(false);
+			}
+			{
+				bottomPanel = new JPanel();
+			}
+			{
+				topPanel = new JPanel();
+				topPanel.setSize(770, 10);
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-				.addComponent(jSplitPane1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addContainerGap());
-			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-				.addComponent(jSplitPane1, 0, 788, Short.MAX_VALUE));
+				.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jSplitPane1, 0, 540, Short.MAX_VALUE)
+				.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE));
+			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
+				.addComponent(topPanel, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
+				.addComponent(jSplitPane1, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
+				.addComponent(bottomPanel, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE));
 			{
 				mainMenuBar = new JMenuBar();
 				setJMenuBar(mainMenuBar);
@@ -109,7 +119,7 @@ public class MainFrame extends javax.swing.JFrame {
 				}
 			}
 			pack();
-			this.setSize(800, 600);
+			this.setSize(780, 659);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
