@@ -29,16 +29,16 @@ import javax.swing.SwingUtilities;
 */
 public class MainFrame extends javax.swing.JFrame {
 	private JMenuBar mainMenuBar;
-	private JSplitPane jSplitPane2;
-	private JScrollPane jScrollPane1;
+	private JSplitPane secondarySplitPane;
+	private JScrollPane thumbnailScrollPane;
 	private JScrollPane jScrollPane2;
 	private JScrollPane jScrollPane4;
-	private JTabbedPane jTabbedPane1;
-	private JPanel jPanel1;
+	private JTabbedPane collectionsTabbedPane;
+	private JPanel propertiesPanel;
 	private JPanel bottomPanel;
 	private JPanel topPanel;
-	private JScrollPane jScrollPane3;
-	private JSplitPane jSplitPane1;
+	private JScrollPane secondaryScrollPane;
+	private JSplitPane mainSplitPane;
 	private JMenu jMenu1;
 
 	/**
@@ -67,39 +67,49 @@ public class MainFrame extends javax.swing.JFrame {
 			this.setTitle("Image manager");
 			getContentPane().setBackground(new java.awt.Color(127,127,127));
 			this.setPreferredSize(new java.awt.Dimension(874, 697));
+			this.setMinimumSize(new java.awt.Dimension(600, 300));
 			{
-				jSplitPane1 = new JSplitPane();
-				jSplitPane1.setResizeWeight(1.0);
+				mainSplitPane = new JSplitPane();
+				mainSplitPane.setResizeWeight(1.0);
+				mainSplitPane.setDividerSize(5);
 				{
-					jScrollPane3 = new JScrollPane();
-					jSplitPane1.add(jScrollPane3, JSplitPane.RIGHT);
-					jScrollPane3.setMinimumSize(new java.awt.Dimension(1, 1));
+					secondaryScrollPane = new JScrollPane();
+					mainSplitPane.add(secondaryScrollPane, JSplitPane.RIGHT);
+					secondaryScrollPane.setMinimumSize(new java.awt.Dimension(150, 1));
 					{
-						jSplitPane2 = new JSplitPane();
-						jScrollPane3.setViewportView(jSplitPane2);
-						jSplitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+						secondarySplitPane = new JSplitPane();
+						secondaryScrollPane.setViewportView(secondarySplitPane);
+						secondarySplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+						secondarySplitPane.setResizeWeight(1.0);
+						secondarySplitPane.setDividerSize(5);
 						{
-							jPanel1 = new JPanel();
-							jSplitPane2.add(jPanel1, JSplitPane.RIGHT);
+							propertiesPanel = new JPanel();
+							secondarySplitPane.add(propertiesPanel, JSplitPane.RIGHT);
+							propertiesPanel.setMinimumSize(new java.awt.Dimension(150, 150));
 						}
 						{
-							jTabbedPane1 = new JTabbedPane();
-							jSplitPane2.add(jTabbedPane1, JSplitPane.LEFT);
+							collectionsTabbedPane = new JTabbedPane();
+							secondarySplitPane.add(collectionsTabbedPane, JSplitPane.LEFT);
+							collectionsTabbedPane.setMinimumSize(new java.awt.Dimension(150, 400));
 							{
 								jScrollPane2 = new JScrollPane();
-								jTabbedPane1.addTab("jScrollPane2", null, jScrollPane2, null);
+								collectionsTabbedPane.addTab("jScrollPane2", null, jScrollPane2, null);
 							}
 							{
 								jScrollPane4 = new JScrollPane();
-								jTabbedPane1.addTab("jScrollPane4", null, jScrollPane4, null);
+								collectionsTabbedPane.addTab("jScrollPane4", null, jScrollPane4, null);
 							}
 						}
 					}
 				}
 				{
-					jScrollPane1 = new JScrollPane();
-					jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
+					thumbnailScrollPane = new JScrollPane();
+					mainSplitPane.add(thumbnailScrollPane, JSplitPane.LEFT);
+					thumbnailScrollPane.setMinimumSize(new java.awt.Dimension(650, 200));
+					thumbnailScrollPane.setSize(650, 631);
 				}
+				mainSplitPane.setDividerLocation(thumbnailScrollPane.getMinimumSize().width);
+				secondarySplitPane.setDividerLocation(collectionsTabbedPane.getMinimumSize().height);
 			}
 			{
 				bottomPanel = new JPanel();
@@ -110,11 +120,11 @@ public class MainFrame extends javax.swing.JFrame {
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-				.addComponent(jSplitPane1, 0, 540, Short.MAX_VALUE)
+				.addComponent(mainSplitPane, 0, 540, Short.MAX_VALUE)
 				.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE));
 			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
 				.addComponent(topPanel, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
-				.addComponent(jSplitPane1, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
+				.addComponent(mainSplitPane, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
 				.addComponent(bottomPanel, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE));
 			{
 				mainMenuBar = new JMenuBar();
