@@ -11,14 +11,20 @@ import javax.swing.Scrollable;
 
 public class ThumbnailPanel extends JPanel implements Scrollable{
 	
+	private static int DEF_COMP_WIDTH = 100, DEF_COMP_HEIGHT = 100;
 	public ThumbnailPanel(){
 		this.setLayout(new ThumbnailLayout());
+		((ThumbnailLayout)getLayout()).setThumbnailDimension(new Dimension(DEF_COMP_WIDTH, DEF_COMP_HEIGHT));
 	}
 	
+	public void rescaleThumbnails(Dimension dim){
+		((ThumbnailLayout)getLayout()).setThumbnailDimension(dim);
+		getLayout().layoutContainer(this);
+	}
 	class ThumbnailLayout implements LayoutManager{
 		
 		// wartosci odpowiadaja aktualnemu rozmiarowi miniaturki
-		private int compWidth = 100, compHeight = 100;
+		private Dimension compDim;
 		@Override
 		public void addLayoutComponent(String name, Component comp) {}
 
@@ -37,7 +43,16 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 
 		@Override
 		public void layoutContainer(Container parent) {
+			System.out.println("layoutContainer called");
 			fitComponents(parent);
+		}
+		
+		public void setThumbnailDimension(Dimension thDim){
+			this.compDim = thDim;
+		}
+		
+		public Dimension getThumbnailDimension(){
+			return compDim;
 		}
 		
 		private void fitComponents(Container parent){
@@ -46,21 +61,22 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			}
 			
 			int compsCount = parent.getComponentCount();
+			System.out.println(compsCount);
 			int panelWidth = parent.getWidth(), panelHeight = parent.getHeight();
 			// obliczyc szerokosc przypadajaca na komponent
 						
 			// obliczyc ile komponentow w rzedzie i skorygowac szerokosc panelu
-			int compsInRow = panelWidth / compWidth;
-			int leftPixels = panelWidth % compWidth;
+			int compsInRow = panelWidth / compDim.width;
+			int leftPixels = panelWidth % compDim.width;
 			int addPixels = leftPixels / compsInRow;
 			
-			panelWidth = compsInRow * compWidth;
+			panelWidth = compsInRow * compDim.width;
 			
 			// obliczyc ile komponentow w kolumnie i wysokosc panelu
 			int compsInCol = compsCount / compsInRow;
 			compsInCol += ((compsCount % compsInRow) > 0) ? 1 : 0;
 			
-			panelHeight = compsInCol * compHeight;
+			panelHeight = compsInCol * compDim.height;
 			
 			parent.setPreferredSize(new Dimension(panelWidth, panelHeight));
 			
@@ -69,7 +85,7 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			Component[] comps = parent.getComponents();
 			int i = 0, j = 0;
 			for (Component c : comps) {
-				c.setBounds(j * (compWidth+addPixels), i * compHeight, compWidth+addPixels, compHeight);
+				c.setBounds(j * (compDim.width+addPixels), i * compDim.height, compDim.width+addPixels, compDim.height);
 				++j;
 				if (j == compsInRow) {
 					j = 0;
@@ -112,4 +128,5 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

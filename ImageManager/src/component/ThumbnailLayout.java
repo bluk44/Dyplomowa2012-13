@@ -8,7 +8,6 @@ import java.awt.LayoutManager;
 public class ThumbnailLayout implements LayoutManager {
 
 	private Dimension minimumLayoutSize;
-	private int minCompWidth = 50, minCompHeight = 50;
 	
 	ThumbnailLayout(int width, int height) {
 		minimumLayoutSize = new Dimension(width, height);
@@ -33,7 +32,6 @@ public class ThumbnailLayout implements LayoutManager {
 	}
 
 	private void fitComponents(Container parent) {
-		System.out.println("fitcomponents call");
 		
 		if(parent.getComponentCount() == 0){
 			return;
@@ -41,15 +39,6 @@ public class ThumbnailLayout implements LayoutManager {
 		
 		int width = parent.getWidth(), height = parent.getHeight();
 		int compsInRow = 10, compsInCol = 10;
-		
-//		if(){
-//			
-//		}
-	//	int maxCompsInRow = width / minCompWidth, maxCompsInCol = height / minCompHeight;
-		// dopasowywanie szerokosci i wysokosci do zaokraglonej liczby komponentow
-		
-//		if()
-		
 		int compWidth = width / compsInRow;
 		int compHeight = height / compsInCol;
 		

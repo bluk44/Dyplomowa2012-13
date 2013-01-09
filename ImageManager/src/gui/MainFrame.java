@@ -1,5 +1,8 @@
 package gui;
+import component.ThumbnailComponent;
+import component.ThumbnailPanel;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
@@ -32,8 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
 	private JSplitPane secondarySplitPane;
 	private JScrollPane thumbnailScrollPane;
 	private JScrollPane jScrollPane2;
+	private ButtonGroup buttonGroup1;
 	private JScrollPane jScrollPane4;
 	private JTabbedPane collectionsTabbedPane;
+	private ThumbnailPanel thumbnailPanel1;
 	private JPanel propertiesPanel;
 	private JPanel bottomPanel;
 	private JPanel topPanel;
@@ -57,6 +62,7 @@ public class MainFrame extends javax.swing.JFrame {
 	public MainFrame() {
 		super();
 		initGUI();
+		populateThumbnails();
 	}
 	
 	private void initGUI() {
@@ -107,6 +113,11 @@ public class MainFrame extends javax.swing.JFrame {
 					mainSplitPane.add(thumbnailScrollPane, JSplitPane.LEFT);
 					thumbnailScrollPane.setMinimumSize(new java.awt.Dimension(650, 200));
 					thumbnailScrollPane.setSize(650, 631);
+					{
+						thumbnailPanel1 = new ThumbnailPanel();
+						thumbnailScrollPane.setViewportView(thumbnailPanel1);
+						thumbnailPanel1.setPreferredSize(new java.awt.Dimension(704, 573));
+					}
 				}
 				mainSplitPane.setDividerLocation(thumbnailScrollPane.getMinimumSize().width);
 				secondarySplitPane.setDividerLocation(collectionsTabbedPane.getMinimumSize().height);
@@ -141,6 +152,22 @@ public class MainFrame extends javax.swing.JFrame {
 		    //add your error handling code here
 			e.printStackTrace();
 		}
+	}
+	
+	private void populateThumbnails(){
+		ThumbnailComponent[] components = new ThumbnailComponent[100];
+		
+		for(int i=0;i<components.length;i++){
+			components[i] = new ThumbnailComponent(""+i);
+			thumbnailPanel1.add(components[i]);
+		}
+	}
+	
+	private ButtonGroup getButtonGroup1() {
+		if(buttonGroup1 == null) {
+			buttonGroup1 = new ButtonGroup();
+		}
+		return buttonGroup1;
 	}
 
 }
