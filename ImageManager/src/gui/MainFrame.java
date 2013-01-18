@@ -254,12 +254,7 @@ public class MainFrame extends javax.swing.JFrame {
 	}
 
 	private void rescaleThumbs(double factor) {
-		for (int i = 0; i < components.length; i++) {
-			components[i].rescaleImage2(factor);
-		}
-		Dimension imgArea = components[0].imageArea;
-		thumbnailPanel1.rescaleComponents(new Dimension(imgArea.width + 10,
-				imgArea.height + 10));
+		thumbnailPanel1.rescaleComponents(factor);
 	}
 
 	private void populateThumbnails() {

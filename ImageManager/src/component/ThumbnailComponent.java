@@ -13,54 +13,55 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
 public class ThumbnailComponent extends JButton {
-
+	
 	private Image image;
 	private int imageX, imageY;
 	public Dimension imageArea;
 	private int imageAreaX, imageAreaY;
+	private final int margin = 10; 
+	private Image originalImage = new BufferedImage(300, 150, BufferedImage.TYPE_INT_RGB);
+	private Image thumbnailImage;
 	
-	private Image origin = new BufferedImage(300, 150, BufferedImage.TYPE_INT_RGB);
-	private Image fake;
-	
-	public void rescaleImage2(double factor){
-		fake = origin.getScaledInstance((int) (origin.getWidth(null) * factor), -1, BufferedImage.SCALE_FAST);
-		fitImageArea2();
+	private static int DEF_COMP_WIDTH = 100, DEF_COMP_HEIGHT = 100;
+
+	public ThumbnailComponent(){
+		try {
+			image = ImageIO.read(new File("image/street_RGB.bmp"));
+			setPreferredSize(new Dimension(DEF_COMP_WIDTH, DEF_COMP_HEIGHT));
+			createThumbnail(0.25);
+			fitThumbArea();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private void fitImageArea2(){
-		int a = (fake.getHeight(null) < fake.getWidth(null)) ? fake.getWidth(null) : fake.getHeight(null);
+	public void rescale(double factor){
+		createThumbnail(factor);
+		fitThumbArea();
+		changeSize(factor);
+	}
+	
+	protected void createThumbnail(double factor){
+		thumbnailImage = originalImage.getScaledInstance((int) (originalImage.getWidth(null) * factor), -1, BufferedImage.SCALE_FAST);
+	}
+	
+	protected void fitThumbArea(){
+		int a = (thumbnailImage.getHeight(null) < thumbnailImage.getWidth(null)) ? thumbnailImage.getWidth(null) : thumbnailImage.getHeight(null);
 		imageArea = new Dimension(a,a);
-		imageX = (imageArea.width - fake.getWidth(null)) / 2;
-		imageY = (imageArea.height - fake.getHeight(null)) / 2;
+		imageX = (imageArea.width - thumbnailImage.getWidth(null)) / 2;
+		imageY = (imageArea.height - thumbnailImage.getHeight(null)) / 2;
+	}
+	
+	protected void changeSize(double factor){
+		setPreferredSize(new Dimension(imageArea.width + margin, imageArea.height + margin));
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		 g.setColor(Color.BLUE);
 		 g.drawRect(imageAreaX, imageAreaY, imageArea.width, imageArea.height);
-		 g.drawImage(fake, imageAreaX + imageX, imageAreaY + imageY, null);
-	}
-	
-	public ThumbnailComponent(){
-		try {
-			image = ImageIO.read(new File("image/street_RGB.bmp"));
-			rescaleImage2(0.25);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void rescaleImage(double factor){
-		image = image.getScaledInstance((int) (image.getWidth(null) * factor), -1, BufferedImage.SCALE_FAST);
-		fitImageArea();
-	}
-	
-	private void fitImageArea(){
-		int a = (image.getHeight(null) < image.getWidth(null)) ? image.getWidth(null) : image.getHeight(null);
-		imageArea = new Dimension(a,a);
-		imageX = (imageArea.width - image.getWidth(null)) / 2;
-		imageY = (imageArea.height - image.getHeight(null)) / 2;
+		 g.drawImage(thumbnailImage, imageAreaX + imageX, imageAreaY + imageY, null);
 	}
 	
 	@Override
