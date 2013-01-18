@@ -14,7 +14,6 @@ import javax.swing.JButton;
 
 public class ThumbnailComponent extends JButton {
 	
-	private Image image;
 	private int imageX, imageY;
 	public Dimension imageArea;
 	private int imageAreaX, imageAreaY;
@@ -26,7 +25,8 @@ public class ThumbnailComponent extends JButton {
 
 	public ThumbnailComponent(){
 		try {
-			image = ImageIO.read(new File("image/street_RGB.bmp"));
+			originalImage = ImageIO.read(new File("image/street_RGB.bmp"));
+			thumbnailImage = new BufferedImage(1, 1, ((BufferedImage)(originalImage)).getType());
 			setPreferredSize(new Dimension(DEF_COMP_WIDTH, DEF_COMP_HEIGHT));
 			createThumbnail(0.25);
 			fitThumbArea();

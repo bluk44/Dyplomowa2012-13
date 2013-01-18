@@ -6,10 +6,13 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
 public class ThumbnailPanel extends JPanel implements Scrollable{
+	
+	protected int visibleRowCount;
 	
 	public ThumbnailPanel(){
 		this.setLayout(new ThumbnailLayout());
@@ -42,7 +45,6 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 
 		@Override
 		public void layoutContainer(Container parent) {
-			System.out.println("layoutContainer called");
 			fitComponents(parent);
 		}
 		
@@ -73,10 +75,10 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			
 			panelHeight = compsInCol * compDim.height;
 			
+			// zapisuje nowy rozmiar panelu
 			parent.setPreferredSize(new Dimension(panelWidth, panelHeight));
 			
 			// wyznaczyc polozenie komponentow
-			
 			Component[] comps = parent.getComponents();
 			int i = 0, j = 0;
 			for (Component c : comps) {
@@ -89,13 +91,12 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			}
 			
 		}
-			
+	
 	}
 
 	@Override
 	public Dimension getPreferredScrollableViewportSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return getPreferredSize();
 	}
 
 	@Override

@@ -255,6 +255,7 @@ public class MainFrame extends javax.swing.JFrame {
 
 	private void rescaleThumbs(double factor) {
 		thumbnailPanel1.rescaleComponents(factor);
+		thumbnailScrollPane.revalidate();
 	}
 
 	private void populateThumbnails() {
