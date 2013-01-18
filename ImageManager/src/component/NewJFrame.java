@@ -1,22 +1,15 @@
 package component;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 
-import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
 
 
 /**
@@ -34,8 +27,7 @@ import javax.swing.WindowConstants;
 public class NewJFrame extends javax.swing.JFrame {
 	private boolean clicked= false;
 	ThumbnailComponent[] components = new ThumbnailComponent[100];
-	private JScrollPane jScrollPane1;
-	private ThumbnailPanel thumbnailPanel1;
+	private ThumbnailComponent thumbnailComponent1;
 	/**
 	* Auto-generated main method to display this JFrame
 	*/
@@ -53,50 +45,39 @@ public class NewJFrame extends javax.swing.JFrame {
 	public NewJFrame() {
 		super();
 		initGUI();
-		setUpComponents();
 	}
-	
-	private void setUpComponents(){
-		for(int i=0;i<components.length;i++){
-
-
-			components[i] = new ThumbnailComponent(""+i);
-			thumbnailPanel1.add(components[i]);
-		}
-		System.out.println(thumbnailPanel1.getComponentCount());
 		
-	}
-	
 	private void initGUI() {
 		try {
 			{
 				this.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						System.out.println("this.mouseClicked, event="+evt);
-						thumbnailPanel1.rescaleThumbnails(new Dimension(200, 200));
 					}
 				});
 			}
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			{
-				jScrollPane1 = new JScrollPane();
-				{
-					thumbnailPanel1 = new ThumbnailPanel();
-					jScrollPane1.setViewportView(thumbnailPanel1);
-					thumbnailPanel1.setPreferredSize(new java.awt.Dimension(543, 601));
-				}
+				thumbnailComponent1 = new ThumbnailComponent();
+				thumbnailComponent1.addComponentListener(new ComponentAdapter() {
+					public void componentResized(ComponentEvent evt) {
+						System.out.println("thumbnailComponent1.componentResized, event="+evt);
+						//TODO add your code for thumbnailComponent1.componentResized
+					}
+				});
 			}
 				thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-					.addContainerGap(32, 32)
-					.addComponent(jScrollPane1, 0, 280, Short.MAX_VALUE));
+					.addContainerGap(55, 55)
+					.addComponent(thumbnailComponent1, 0, 168, Short.MAX_VALUE)
+					.addContainerGap(95, 95));
 				thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-					.addContainerGap(37, 37)
-					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 548, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(74, Short.MAX_VALUE));
+					.addContainerGap(59, 59)
+					.addComponent(thumbnailComponent1, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(108, Short.MAX_VALUE));
 
 			pack();
-			this.setSize(669, 342);
+			this.setSize(473, 348);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();

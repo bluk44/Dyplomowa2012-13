@@ -14,17 +14,18 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 	private static int DEF_COMP_WIDTH = 100, DEF_COMP_HEIGHT = 100;
 	public ThumbnailPanel(){
 		this.setLayout(new ThumbnailLayout());
-		((ThumbnailLayout)getLayout()).setThumbnailDimension(new Dimension(DEF_COMP_WIDTH, DEF_COMP_HEIGHT));
+		((ThumbnailLayout)getLayout()).setCompDimension(new Dimension(DEF_COMP_WIDTH, DEF_COMP_HEIGHT));
 	}
 	
-	public void rescaleThumbnails(Dimension dim){
-		((ThumbnailLayout)getLayout()).setThumbnailDimension(dim);
+	public void rescaleComponents(Dimension dim){
+		((ThumbnailLayout)getLayout()).setCompDimension(dim);
 		getLayout().layoutContainer(this);
 	}
 	class ThumbnailLayout implements LayoutManager{
 		
 		// wartosci odpowiadaja aktualnemu rozmiarowi miniaturki
 		private Dimension compDim;
+		
 		@Override
 		public void addLayoutComponent(String name, Component comp) {}
 
@@ -47,8 +48,8 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			fitComponents(parent);
 		}
 		
-		public void setThumbnailDimension(Dimension thDim){
-			this.compDim = thDim;
+		public void setCompDimension(Dimension compDim){
+			this.compDim = compDim;
 		}
 		
 		public Dimension getThumbnailDimension(){
