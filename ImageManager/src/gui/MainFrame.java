@@ -1,9 +1,11 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;
@@ -70,7 +72,11 @@ public class MainFrame extends javax.swing.JFrame {
 		initGUI();
 		populateThumbnails();
 	}
-
+	
+	public boolean isPanelDB(){
+		return thumbnailPanel1.isDoubleBuffered();
+	}
+	
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -264,6 +270,7 @@ public class MainFrame extends javax.swing.JFrame {
 		for (int i = 0; i < components.length; i++) {
 			components[i] = new ThumbnailComponent();
 			thumbnailPanel1.add(components[i]);
+			components[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
 	}
 

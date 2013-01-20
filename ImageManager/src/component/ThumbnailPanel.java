@@ -54,7 +54,6 @@ public class ThumbnailPanel extends JPanel implements Scrollable{
 			}
 			
 			int compsCount = parent.getComponentCount();
-			System.out.println(compsCount);
 			int panelWidth = parent.getWidth(), panelHeight = parent.getHeight();
 			
 			// wszystkie powinny miec ten sam rozmiar
