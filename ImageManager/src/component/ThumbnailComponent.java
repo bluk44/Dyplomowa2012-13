@@ -72,12 +72,6 @@ public class ThumbnailComponent extends JButton {
 	}
 	
 	@Override
-	protected void paintBorder(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintBorder(g);
-	}
-	
-	@Override
 	public void setBounds(int x, int y, int width, int height) {
 		super.setBounds(x, y, width, height);
 		imageAreaX = (width - imageArea.width) / 2;
