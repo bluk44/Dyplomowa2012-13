@@ -24,6 +24,8 @@ import javax.swing.WindowConstants;
 
 import component.ThumbnailComponent;
 import component.ThumbnailPanel;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -192,46 +194,28 @@ public class MainFrame extends javax.swing.JFrame {
 
 				GroupLayout bottomPanelLayout = new GroupLayout(
 						(JComponent) bottomPanel);
+				bottomPanelLayout.setHorizontalGroup(
+					bottomPanelLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, bottomPanelLayout.createSequentialGroup()
+							.addContainerGap(649, Short.MAX_VALUE)
+							.addComponent(firstScaleButton, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(secScaleButton, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(thirdScaleButton, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+				);
+				bottomPanelLayout.setVerticalGroup(
+					bottomPanelLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(bottomPanelLayout.createSequentialGroup()
+							.addGroup(bottomPanelLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(thirdScaleButton, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(bottomPanelLayout.createParallelGroup(Alignment.BASELINE)
+									.addComponent(secScaleButton, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+									.addComponent(firstScaleButton, 0, 23, Short.MAX_VALUE)))
+							.addContainerGap())
+				);
 				bottomPanel.setLayout(bottomPanelLayout);
-				bottomPanelLayout
-						.setHorizontalGroup(bottomPanelLayout
-								.createSequentialGroup()
-								.addContainerGap(682, Short.MAX_VALUE)
-								.addComponent(firstScaleButton,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(secScaleButton,
-										GroupLayout.PREFERRED_SIZE, 57,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(thirdScaleButton,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addContainerGap());
-				bottomPanelLayout.setVerticalGroup(bottomPanelLayout
-						.createSequentialGroup()
-						.addGroup(
-								bottomPanelLayout
-										.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-										.addComponent(firstScaleButton,
-												GroupLayout.Alignment.BASELINE,
-												0, 23, Short.MAX_VALUE)
-										.addComponent(secScaleButton,
-												GroupLayout.Alignment.BASELINE,
-												GroupLayout.PREFERRED_SIZE, 17,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(thirdScaleButton,
-												GroupLayout.Alignment.BASELINE,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.PREFERRED_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-						.addContainerGap());
 			}
 			{
 				topPanel = new JPanel();
