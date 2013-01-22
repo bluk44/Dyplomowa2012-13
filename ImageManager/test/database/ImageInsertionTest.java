@@ -36,7 +36,7 @@ public class ImageInsertionTest {
 			
 			boolean writeBlob = readImage(imageFile, output);
 			
-			// dlaczego 0 ??
+			// blob jest pusty lol
 			System.out.println("blob length: "+imageBlob.length());
 			if(writeBlob){
 				preparedStatement =sqlConnection.prepareStatement("INSERT INTO images VAULES(?,?,?)");
