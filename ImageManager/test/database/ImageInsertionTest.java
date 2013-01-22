@@ -23,59 +23,36 @@ public class ImageInsertionTest {
 		
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
+		Blob imageBlob = null;
+		
 		try {
 			System.out.println("connecting to: "+ Config.getUrl());
 			sqlConnection = DriverManager.getConnection(Config.getUrl(), Config.USER, Config.PASS);
 			System.out.println("connection successful");
 			
-			Blob imageBlob = sqlConnection.createBlob();
-			OutputStream output = imageBlob.setBinaryStream(1);
-			
-			File imageFile = new File("image/street_RGB.bmp");
+			File imageFile = new File("image/allblack.bmp");
 			String fileName = imageFile.getName();
 			
-			boolean writeBlob = readImage(imageFile, output);
+			FileInputStream in =new FileInputStream(imageFile);
 			
-			// blob jest pusty lol
-			System.out.println("blob length: "+imageBlob.length());
-			if(writeBlob){
-				preparedStatement =sqlConnection.prepareStatement("INSERT INTO images VAULES(?,?,?)");
-				preparedStatement.setNull(1, Types.NULL);
-				preparedStatement.setBlob(2, imageBlob);
-				preparedStatement.setNull(3, Types.NULL);
+				preparedStatement =sqlConnection.prepareStatement("insert into MyPictures(id, name, photo) values (?, ?, ?)");
+				preparedStatement.setInt(1, 2);
+				preparedStatement.setString(2, "name");
+				preparedStatement.setBlob(3, in, (int)fileName.length());
 				preparedStatement.executeUpdate();
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.out.println("file was not found.");
 		} finally {
-			System.out.println("Closing sql connection...");
 			if(sqlConnection != null) try { sqlConnection.close(); } catch (SQLException e) {}		
-			System.out.println("sql connection closed");
-			if(preparedStatement != null) try { preparedStatement.close(); } catch (SQLException e) {}		
-
+			System.out.println("sql connection closed...");
+			if(preparedStatement != null) try { preparedStatement.close(); } catch (SQLException e) {}
+			System.out.println("prepared statement closed...");
+			if(imageBlob != null) try { imageBlob.free(); } catch (SQLException e) {}
+			System.out.println("blob is free...");
 		}
 	}
 	
-	static boolean readImage(File imageFile, OutputStream out){
-		FileInputStream in = null;
-			try {
-				in = new FileInputStream(imageFile);
-				int b = -1;
-				while((b = in.read())!= -1){
-					out.write(b);
-				}
-				
-				return true;
-			} catch (FileNotFoundException e) {
-				System.out.println("file not found");
-				return false;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			} finally{
-				try {in.close();} catch (IOException e) {e.printStackTrace();}
-			}
-	}
-
 }
