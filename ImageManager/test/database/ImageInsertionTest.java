@@ -23,7 +23,6 @@ public class ImageInsertionTest {
 		
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
-		Blob imageBlob = null;
 		
 		try {
 			System.out.println("connecting to: "+ Config.getUrl());
@@ -35,10 +34,9 @@ public class ImageInsertionTest {
 			
 			FileInputStream in =new FileInputStream(imageFile);
 			
-				preparedStatement =sqlConnection.prepareStatement("insert into MyPictures(id, name, photo) values (?, ?, ?)");
-				preparedStatement.setInt(1, 2);
-				preparedStatement.setString(2, "name");
-				preparedStatement.setBlob(3, in, (int)fileName.length());
+				preparedStatement =sqlConnection.prepareStatement("insert into MyPictures(name, photo) values (?, ?)");
+				preparedStatement.setString(1, "blob");
+				preparedStatement.setBlob(2, in, (int)fileName.length());
 				preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -50,8 +48,7 @@ public class ImageInsertionTest {
 			System.out.println("sql connection closed...");
 			if(preparedStatement != null) try { preparedStatement.close(); } catch (SQLException e) {}
 			System.out.println("prepared statement closed...");
-			if(imageBlob != null) try { imageBlob.free(); } catch (SQLException e) {}
-			System.out.println("blob is free...");
+
 		}
 	}
 	
