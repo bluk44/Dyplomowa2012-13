@@ -8,48 +8,102 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Filtration {
-	private static final int[] convMask = { 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	protected static final int[][] convMask = { { 1, 1, 1 }, { 1, 1, 1 },
+			{ 1, 1, 1 } };
+	protected static final int maskSum;
+	static {
+		int sum = 0;
+		for (int i = 0; i < convMask.length; i++) {
+			for (int j = 0; j < convMask[0].length; j++) {
+				++sum;
+			}
+		}
+		maskSum = sum;
+	}
+
+	protected static final int MAX_PIXEL_VAL = 255;
 	// m - szerokosc maski, n - wysokosc maski
 	// rn - promien maski w pionie, rm - promien maski w poziomie
 
-	private static final int n = 5, m = 5, rn = (n - 1) / 2, rm = (m - 1) / 2;
+	private static final int n = 3, m = 3, rn = (n - 1) / 2, rm = (m - 1) / 2;
 
-	private static int[] getRasterZeros(BufferedImage image) {
+	protected static void conv(BufferedImage image) {
+		int nBands = image.getRaster().getNumBands();
+		int h = image.getHeight(), w = image.getWidth();
+		for (int b = 0; b < nBands; b++) {
+			int[][] raster = getRasterZeros(image, b);
+			int[] newSamples = new int[image.getWidth() * image.getHeight()];
 
-		int[] arr = new int[(image.getWidth() + 2 * rm)
-				* (image.getHeight() + 2 * rn)];
+			// dla kazdego pixela policz sume
+			for (int i = 0; i < h; i++) {
+				for (int j = 0; j < w; j++) {
+					newSamples[i * w + j] = countPixel(rn + i, rm + j, raster); 
+				}
+			}
+
+			image.getRaster().setSamples(0, 0, w, h, b, newSamples);
+		}
+
+	}
+
+	/**
+	 * kopiuje raster do tablicy z zerami na brzegach
+	 * 
+	 * @param image
+	 * @param b
+	 * @return
+	 */
+	private static int[][] getRasterZeros(BufferedImage image, int b) {
+
+		int[][] arr = new int[image.getHeight() + 2 * rn][image.getWidth() + 2
+				* rm];
 		int w = image.getWidth(), h = image.getHeight();
 		WritableRaster r = image.getRaster();
-		int offset = w + 2 * rm;
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
-				arr[offset * rn + offset * i + rm + j] = r.getSample(j, i, 0);
+				arr[rn + i][rm + j] = r.getSample(j, i, b);
 			}
 		}
 		return arr;
 	}
 
-	protected static BufferedImage conv(BufferedImage image) {
-		System.out.println();
-		int[] raster = getRasterZeros(image);
-		int w = image.getWidth() + 2 * rm, h = image.getHeight() + 2 * rn;
-		int nBands = image.getRaster().getNumBands();
-		for (int b = 0; b < nBands; b++) {
-			for (int i = 0; i < h; i++) {
-				for (int j = 0; j < w; j++) {
-
-				}
-				System.out.println();
+	private static int countPixel(int y, int x, int[][] raster) {
+		int sum = 0;
+			for (int h = y - rn, i = 0; h <= y + rn; h++, i++) {
+			for (int w = x - rm, j = 0; w <= x + rm; w++, j++) {
+				sum += convMask[i][j] * raster[h][w];
 			}
 		}
-		return null;
+		if (sum > MAX_PIXEL_VAL) {
+			sum /= 9;
+		}
+		return sum;
 	}
-	
-	//private int countPixel(int x, int)
+
 	public static void main(String[] args) {
+		
 		try {
-			BufferedImage img = ImageIO.read(new File("images/simple2.bmp"));
-			conv(img);
+			BufferedImage img = ImageIO.read(new File("images/kolo.bmp"));
+			System.out.println(img.getRGB(10, 10));
+//			conv(img);
+//
+//			int w = img.getWidth(), h = img.getHeight(), nBands = img
+//					.getRaster().getNumBands();
+//			for (int b = 0; b < nBands; b++) {
+//				int[] samples = img.getRaster().getSamples(0, 0, w, h, b,
+//						(int[]) null);
+//				for (int i = 0; i < h; i++) {
+//					for (int j = 0; j < w; j++) {
+//						if (samples[i * w + j] == 0) {
+//							System.out.print(" 0  ");
+//						} else {
+//							System.out.print(samples[i * w + j] + " ");
+//						}
+//					}
+//					System.out.println();
+//				}
+//				System.out.println();
+//			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
