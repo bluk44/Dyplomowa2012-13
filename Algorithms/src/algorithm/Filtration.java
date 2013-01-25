@@ -8,9 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Filtration {
-	protected static final int[][] convMask = { { 1, 1, 1 }, { 1, 1, 1 },
+	protected static final double[][] convMask = { { 1, 1, 1 }, { 1, 1, 1 },
 			{ 1, 1, 1 } };
-	protected static final int maskSum;
+	protected static final double maskSum;
 	static {
 		int sum = 0;
 		for (int i = 0; i < convMask.length; i++) {
@@ -21,7 +21,7 @@ public class Filtration {
 		maskSum = sum;
 	}
 
-	protected static final int MAX_PIXEL_VAL = 255;
+	protected static final double MAX_PIXEL_VAL = 255;
 	// m - szerokosc maski, n - wysokosc maski
 	// rn - promien maski w pionie, rm - promien maski w poziomie
 
@@ -31,8 +31,8 @@ public class Filtration {
 		int nBands = image.getRaster().getNumBands();
 		int h = image.getHeight(), w = image.getWidth();
 		for (int b = 0; b < nBands; b++) {
-			int[][] raster = getRasterZeros(image, b);
-			int[] newSamples = new int[image.getWidth() * image.getHeight()];
+			double[][] raster = getRasterZeros(image, b);
+			double[] newSamples = new double[image.getWidth() * image.getHeight()];
 
 			// dla kazdego pixela policz sume
 			for (int i = 0; i < h; i++) {
@@ -53,22 +53,22 @@ public class Filtration {
 	 * @param b
 	 * @return
 	 */
-	private static int[][] getRasterZeros(BufferedImage image, int b) {
+	private static double[][] getRasterZeros(BufferedImage image, int b) {
 
-		int[][] arr = new int[image.getHeight() + 2 * rn][image.getWidth() + 2
+		double[][] arr = new double[image.getHeight() + 2 * rn][image.getWidth() + 2
 				* rm];
 		int w = image.getWidth(), h = image.getHeight();
 		WritableRaster r = image.getRaster();
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
-				arr[rn + i][rm + j] = r.getSample(j, i, b);
+				arr[rn + i][rm + j] = r.getSampleDouble(j, i, b);
 			}
 		}
 		return arr;
 	}
 
-	private static int countPixel(int y, int x, int[][] raster) {
-		int sum = 0;
+	private static double countPixel(int y, int x, double[][] raster) {
+		double sum = 0;
 			for (int h = y - rn, i = 0; h <= y + rn; h++, i++) {
 			for (int w = x - rm, j = 0; w <= x + rm; w++, j++) {
 				sum += convMask[i][j] * raster[h][w];
