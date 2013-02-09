@@ -8,8 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Filtration {
-	protected static final double[][] convMask = { { 1, 1, 1 }, { 1, 1, 1 },
-			{ 1, 1, 1 } };
+	protected static final double[][] convMask = { { 0.111d, 0.111d, 0.111d }, { 0.111d, 0.111d, 0.111d },
+			{ 0.111d, 0.111d, 0.111d } };
 	protected static final double maskSum;
 	static {
 		int sum = 0;
@@ -73,9 +73,6 @@ public class Filtration {
 			for (int w = x - rm, j = 0; w <= x + rm; w++, j++) {
 				sum += convMask[i][j] * raster[h][w];
 			}
-		}
-		if (sum > MAX_PIXEL_VAL) {
-			sum /= 9;
 		}
 		return sum;
 	}
