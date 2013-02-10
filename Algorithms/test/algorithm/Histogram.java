@@ -40,9 +40,13 @@ public class Histogram {
 			graphs[i] = new HistGraph(0, 0, 0, 255, 0, maxY, 32, 8, maxY / 10,
 					maxY / 15, i);
 			graphs[i].addPlots(Color.BLACK, new Values(i));
-			System.out.println(maxY);
 		}
 	}
+	
+	public int[] getValues(int b){
+		return values[b];
+	}
+	
 	public void setTreshold(int b, int val){
 		graphs[b].treshold = val;
 		
