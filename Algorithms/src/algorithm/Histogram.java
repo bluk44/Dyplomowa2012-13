@@ -115,9 +115,9 @@ public class Histogram {
 	public static void main(String[] args) {
 		try {
 			BufferedImage img = ImageIO.read(new File(
-					"images/whiteboard/wb01.jpg"));
+					"images/half.bmp"));
 			Histogram h = new Histogram(img);
-			h.setTreshold(0, 128);
+			h.setTreshold(0, 255);
 			// System.out.println(h);
 			h.draw(0);
 		} catch (IOException e) {
