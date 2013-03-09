@@ -29,8 +29,7 @@ public class TresholdTesting {
 		frame.getContentPane().add(scrollPane);
 		frame.pack();
 		frame.setVisible(true);
-		
-		
+				
 	}
 
 }
