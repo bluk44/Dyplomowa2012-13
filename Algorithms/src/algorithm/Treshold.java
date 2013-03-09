@@ -10,6 +10,9 @@ public abstract class Treshold {
 		if (image.getType() != BufferedImage.TYPE_BYTE_GRAY)
 			throw new UnsupportedOperationException(
 					"only grayscale images are allowed");
+		Histogram h = new Histogram(image);
+		h.setTreshold(0, value);
+		h.draw(0);
 		split(0, 0, image.getWidth(), image.getHeight(), value, image);
 
 	}
