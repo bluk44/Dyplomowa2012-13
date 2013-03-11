@@ -1,14 +1,11 @@
 package jai;
 
-import java.awt.image.renderable.ParameterBlock;
 import java.util.Properties;
 
 import javax.media.jai.BorderExtender;
-import javax.media.jai.BorderExtenderConstant;
 import javax.media.jai.JAI;
 import javax.media.jai.RenderableOp;
 import javax.media.jai.RenderedOp;
-import javax.media.jai.operator.BorderDescriptor;
 import javax.swing.JFrame;
 
 public class RenderedGraphsTest {
