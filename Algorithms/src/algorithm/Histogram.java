@@ -20,25 +20,7 @@ public class Histogram {
 	
 	private int[] maxYs;
 	public Histogram(BufferedImage image) {
-		nBands = image.getRaster().getNumBands();
-		values = new int[nBands][256];
-		graphs = new GraphComp[nBands];
-		maxYs = new int[nBands];
-		
-		Raster r = image.getRaster();
-		for (int i = 0; i < nBands; i++) {
-			int maxY = 0;
-			int[] samples = new int[r.getHeight() * r.getWidth()];
-			r.getSamples(0, 0, r.getWidth(), r.getHeight(), i, samples);
-			for (int j = 0; j < samples.length; j++) {
-				values[i][samples[j]]++;
-				if (maxY < values[i][samples[j]]) {
-					maxY = values[i][samples[j]];
-				}
-			}
-			maxYs[i] = maxY;
-			graphs[i] = new GraphComp(values[i]);
-		}
+		this(image, 0, 0, image.getWidth(), image.getHeight());
 	}
 	
 	public Histogram(BufferedImage image, int x, int y, int w, int h) {
@@ -52,6 +34,7 @@ public class Histogram {
 			int maxY = 0;
 			int[] samples = new int[w * h];
 			r.getSamples(x, y, w, h, i, samples);
+
 			for (int j = 0; j < samples.length; j++) {
 				values[i][samples[j]]++;
 				if (maxY < values[i][samples[j]]) {
@@ -101,11 +84,10 @@ public class Histogram {
 	public static void main(String[] args) {
 		try {
 			BufferedImage img = ImageIO.read(new File(
-					"images/mars.bmp"));
-			Histogram h = new Histogram(img);
-			h.setTreshold(0, 210);
-			// System.out.println(h);
-			h.draw(0);
+					"images/localTresh2.bmp"));
+			Histogram h1 = new Histogram(img,2,2,2,2);
+			h1.draw();
+			//System.out.println(h1.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
