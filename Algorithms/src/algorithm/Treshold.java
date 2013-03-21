@@ -24,7 +24,7 @@ public abstract class Treshold {
 		if (image.getType() != BufferedImage.TYPE_BYTE_GRAY)
 			throw new UnsupportedOperationException(
 					"only grayscale images are allowed");
-		localAdaptive(initValue, diff, image, 1,1);
+		localAdaptive(initValue, diff, image, 1, 1);
 	}
 
 	public static void localAdaptive(float initValue, float diff,
@@ -73,16 +73,17 @@ public abstract class Treshold {
 			}
 		}
 	}
-	
+
 	public static void localAdaptive(float initValue, float diff,
-			BufferedImage image, int xSections, int ySections, AdaptiveTresholdingData opData)
+			BufferedImage image, int xSections, int ySections,
+			AdaptiveTresholdingData opData)
 			throws UnsupportedOperationException {
 		if (image.getType() != BufferedImage.TYPE_BYTE_GRAY)
 			throw new UnsupportedOperationException(
 					"only grayscale images are allowed");
 		opData.setImage(image);
-		int[] xSec = new int[xSections], ySec  = new int[ySections];
-		
+		int[] xSec = new int[xSections], ySec = new int[ySections];
+
 		int w = image.getWidth(), h = image.getHeight();
 		int rX = w % xSections, rY = h % ySections, secWidth = w / xSections, secHeight = h
 				/ ySections;
@@ -127,7 +128,48 @@ public abstract class Treshold {
 		opData.setxSections(xSec);
 		opData.setySections(ySec);
 	}
-	
+
+	public static void niblack(BufferedImage image, float k, int xSections,
+			int ySections) {
+
+		int w = image.getWidth(), h = image.getHeight();
+		int rX = w % xSections, rY = h % ySections, secWidth = w / xSections, secHeight = h
+				/ ySections;
+		int sX = xSections - rX, sY = ySections - rY;
+
+		for (int i = 0; i < ySections; i++) {
+			for (int j = 0; j < xSections; j++) {
+				int kX = (j >= sX) ? 1 : 0, kY = (i >= sY) ? 1 : 0;
+				int tX = ((j - sX) > 0) ? (j - sX) : 0, tY = ((i - sY) > 0) ? (i - sY)
+						: 0;
+				int sW = secWidth + kX, sH = secHeight + kY, sCoordX = j
+						* secWidth + tX, sCoordY = i * secHeight + tY;
+				
+				Histogram his = new Histogram(image, sCoordX, sCoordY, sW, sH);
+				int[] values = his.getValues(0);
+				
+				float avg = 0;
+				float pixelSum = 0;
+				for (int l = 0; l < values.length; l++) {
+					pixelSum += values[l];
+					avg += values[l] * l;
+				}
+				avg /= pixelSum;
+
+				float stDev = 0;
+				for (int l = 0; l < values.length; l++) {
+					stDev += values[l] * Math.abs(l - avg);
+				}
+				stDev /= pixelSum;
+
+				int t = (int) (avg + k * stDev);
+				his.setTreshold(0, t);
+				//his.draw();
+				split(sCoordX, sCoordY, sW, sH, (int) t, image);
+			}
+		}
+	}
+
 	protected static void split(int x, int y, int w, int h, int t,
 			BufferedImage image) {
 		WritableRaster r = image.getRaster();

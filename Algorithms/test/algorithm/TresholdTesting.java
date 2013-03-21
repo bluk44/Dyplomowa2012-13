@@ -21,7 +21,8 @@ public class TresholdTesting {
 		BufferedImage gray = Util.grayScale(loadedImage);
 //		Treshold.global(128, gray);
 		Treshold.globalAdaptive(100, 1, gray);
-
+//		Treshold.niblack(gray, 0.6f, 1, 1);
+		
 		JFrame frame = new JFrame("treshold test");
 		ImgComp ic = new ImgComp(gray);
 		JScrollPane scrollPane = new JScrollPane(ic);

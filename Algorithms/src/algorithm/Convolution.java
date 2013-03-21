@@ -4,10 +4,6 @@ import java.awt.image.BufferedImage;
 
 public abstract class Convolution {
 	
-	public static final float[][] LAPLACIAN = { {0, -1, 0}, {-1, 4, -1}, {0, -1, 0 }};	
-	public static final float[][] SOBEL = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
-	public static final float[][] BLUR = {{0.111f, 0.111f, 0.111f}, {0.111f, 0.111f, 0.111f}, {0.111f, 0.111f, 0.111f}};
-	
 	public static void convolve(BufferedImage image, float[][] mask, int b) {
 		
 		int imgW = image.getWidth(), imgH = image.getHeight();

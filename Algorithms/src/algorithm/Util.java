@@ -22,4 +22,22 @@ public abstract class Util {
 		}
 		return dst;
 	}
+
+	public static BufferedImage inverse(BufferedImage src) {
+		BufferedImage dst = new BufferedImage(src.getWidth(), src.getHeight(),
+				BufferedImage.TYPE_BYTE_GRAY);
+		WritableRaster srcR = src.getRaster(), dstR = dst.getRaster();
+		int h = src.getHeight(), w = src.getWidth();
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+
+				for (int k = 0; k < srcR.getNumBands(); k++) {
+					int samp = srcR.getSample(j, i, k);
+					dstR.setSample(j, i, k, 255 - samp);
+				}
+			}
+		}
+		return dst;
+
+	}
 }
